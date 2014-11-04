@@ -20,7 +20,7 @@ check_http()
 {
     ip=$1
     port=$2
-    echo | nc "$ip" "$port" | awk 'NR == 1 && /^HTTP\// { exit 0 } NR > 1 { exit 1 } END { if (NR == 0) { exit 1 } }'
+    echo "GET / HTTP/1.1\r\nHost: foo\r\n\r\n" | nc "$ip" "$port" | awk 'NR == 1 && /^HTTP\// { exit 0 } NR > 1 { exit 1 } END { if (NR == 0) { exit 1 } }'
 }
 
 write_vhost()
